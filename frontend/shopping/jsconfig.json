@@ -11,7 +11,7 @@
       "services/*": ["services/*"],
       "styles/*": ["styles/*"],
       "utils/*": ["utils/*"],
-      "layout/*": ["layout/*"],
+      "layouts/*": ["layouts/*"],
       "redux/*": ["redux/*"],
       "constants/*": ["constants/*"]
     }

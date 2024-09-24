@@ -8,7 +8,7 @@ const paths = [
   "services",
   "styles",
   "utils",
-  "layout",
+  "layouts",
   "redux",
   "constants",
 ];

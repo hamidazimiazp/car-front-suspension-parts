@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "pages/HomePage/HomePage";
 
-const Router = () => {
+const MainRouter = () => {
   return (
     <Routes>
       <Route index element={<HomePage PageTitle="صفحه اصلی" />} />
@@ -9,4 +9,4 @@ const Router = () => {
   );
 };
 
-export default Router;
+export default MainRouter;
