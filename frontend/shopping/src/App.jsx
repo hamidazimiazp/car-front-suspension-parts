@@ -1,14 +1,9 @@
-import Layout from "layouts/main/Layout";
-import MainRouter from "./router/MainRouter";
-import DashboardRouter from "./router/DashboardRouter";
+import Router from "router/Router";
 
 const App = () => {
   return (
     <>
-      <Layout>
-        <MainRouter />
-        <DashboardRouter />
-      </Layout>
+      <Router />
     </>
   );
 };
