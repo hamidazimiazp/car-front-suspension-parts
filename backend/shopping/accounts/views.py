@@ -76,7 +76,7 @@ class UserViewSet(viewsets.ViewSet):
             return Response({
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
-                'user': UserSerializer(user).data
+                # 'user': UserSerializer(user).data
             }, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
