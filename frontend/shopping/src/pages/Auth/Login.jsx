@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "services/auth";
 import { setCookies } from "utils/cookies/cookies";
+import { toast } from "react-toastify";
 
 const Wrapper = styled(Grid2)(({ theme }) => ({
   width: "100%",
@@ -77,10 +78,15 @@ const Login = ({ PageTitle }) => {
           email: "",
           password: "",
         });
-        navigate("/dashboard/");
+        if (data.response.status === 200) {
+          navigate("/dashboard/");
+          toast.success("خوش آمدید");
+        } else {
+          toast.error("خطایی رخ داده است.");
+        }
       },
-      onError: (error) => {
-        console.log(error);
+      onError: () => {
+        toast.error("خطایی رخ داده است.");
       },
     });
   };

@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { register } from "services/auth";
+import { toast } from "react-toastify";
 
 const Wrapper = styled(Grid2)(({ theme }) => ({
   width: "100%",
@@ -86,13 +87,14 @@ const Register = ({ PageTitle }) => {
           password_confirm: "",
         });
         if (data.response.status === 201) {
+          toast.success("با موفقیت ثبت نام شدید.");
           navigate("/auth/login/");
         } else {
-          console.log("canceled");
+          toast.error("خطایی رخ داده است.");
         }
       },
-      onError: (error) => {
-        console.log(error);
+      onError: () => {
+        toast.error("خطایی رخ داده است.");
       },
     });
   };
