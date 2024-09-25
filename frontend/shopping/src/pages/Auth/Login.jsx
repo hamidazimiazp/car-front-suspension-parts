@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "services/auth";
+import { setCookies } from "utils/cookies/cookies";
 
 const Wrapper = styled(Grid2)(({ theme }) => ({
   width: "100%",
@@ -71,7 +72,12 @@ const Login = ({ PageTitle }) => {
     if (!formData.email || !formData.password) return;
     mutate(formData, {
       onSuccess: (data) => {
-        console.log(data);
+        setCookies(data.response.data);
+        setFormData({
+          email: "",
+          password: "",
+        });
+        navigate("/dashboard/");
       },
       onError: (error) => {
         console.log(error);
