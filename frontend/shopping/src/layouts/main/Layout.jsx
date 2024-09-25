@@ -2,10 +2,10 @@ import Footer from "./Footer";
 import Header from "./Header";
 import propTypes from "prop-types";
 
-const Layout = ({ children }) => {
+const Layout = ({ ThemeHandler, children }) => {
   return (
     <>
-      <Header />
+      <Header ThemeHandler={ThemeHandler} />
       <main style={{ minHeight: "90vh" }}>{children}</main>
       <Footer />
     </>
@@ -15,5 +15,6 @@ const Layout = ({ children }) => {
 export default Layout;
 
 Layout.propTypes = {
+  ThemeHandler: propTypes.func,
   children: propTypes.node,
 };

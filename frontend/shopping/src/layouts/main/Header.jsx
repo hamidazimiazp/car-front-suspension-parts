@@ -10,11 +10,17 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import NightlightIcon from "@mui/icons-material/Nightlight";
+import { useTheme } from "@mui/material";
+import propTypes from "prop-types";
 
 const pages = ["خانه", "فروشگاه", "وبلاگ"];
 const settings = ["پروفایل", "داشبورد", "خروج"];
 
-function Header() {
+function Header({ ThemeHandler }) {
+  const theme = useTheme();
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -117,6 +123,15 @@ function Header() {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
+            <IconButton sx={{ ml: 3 }} onClick={ThemeHandler}>
+              {theme.palette.mode === "dark" ? (
+                <WbSunnyIcon color={theme.palette.primary.contrastText} />
+              ) : (
+                <NightlightIcon
+                  sx={{ color: theme.palette.primary.contrastText }}
+                />
+              )}
+            </IconButton>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/icons/profile.svg" />
@@ -153,3 +168,7 @@ function Header() {
   );
 }
 export default Header;
+
+Header.propTypes = {
+  ThemeHandler: propTypes.func,
+};
