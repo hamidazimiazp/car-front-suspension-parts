@@ -1,6 +1,6 @@
 import axios from "axios";
-import refreshToken from "src/services/refreshToken";
-import { getCookie, setCookies } from "src/utils/cookies/cookies";
+import refreshToken from "services/refreshToken";
+import { getCookie, setCookies } from "utils/cookies/cookies";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_BASE_API_URL,

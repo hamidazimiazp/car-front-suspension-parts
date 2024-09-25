@@ -1,5 +1,5 @@
-import api from "src/configs/axios";
-import { getCookie } from "src/utils/cookies/cookies";
+import api from "configs/axios";
+import { getCookie } from "utils/cookies/cookies";
 
 const refreshToken = async () => {
   const refresh = getCookie("refresh");

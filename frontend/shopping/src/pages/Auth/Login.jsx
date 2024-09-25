@@ -11,6 +11,8 @@ import useTitle from "utils/hooks/useTitle";
 import { styled, useTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "services/auth";
 
 const Wrapper = styled(Grid2)(({ theme }) => ({
   width: "100%",
@@ -59,9 +61,22 @@ const Login = ({ PageTitle }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const { isPending, mutate } = useMutation({
+    mutationKey: ["login"],
+    mutationFn: async (data) => await login(data),
+  });
+
   const loginHandler = (e) => {
     e.preventDefault();
-    console.log(formData);
+    if (!formData.email || !formData.password) return;
+    mutate(formData, {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    });
   };
 
   return (
@@ -118,7 +133,7 @@ const Login = ({ PageTitle }) => {
                 color: theme.palette.primary.contrastText,
               }}
             >
-              ورود
+              {isPending ? "درحال ارسال ..." : "ورود"}
             </Button>
             <Button
               onClick={() => navigate("/auth/register/")}
