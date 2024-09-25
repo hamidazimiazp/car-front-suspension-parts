@@ -1,5 +1,20 @@
 import { Container, Grid2, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { styled } from "@mui/system";
+
+const BackTypography = styled(Typography)`
+  @keyframes moveUpDown {
+    0%,
+    100% {
+      transform: translateY(0); // Initial and final position (no movement)
+    }
+    50% {
+      transform: translateY(-5px); // Move up 5px at halfway point
+    }
+  }
+
+  animation: moveUpDown 2s ease-in-out infinite; // Animation properties
+`;
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
@@ -23,9 +38,9 @@ const NotFoundPage = () => {
           sx={{ color: "#1e1e1e", fontWeight: 800, fontSize: 18, marginTop: 5 }}
         >
           <div onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
-            <Typography sx={{ fontSize: 16 }} component={"p"} variant="p">
+            <BackTypography sx={{ fontSize: 16 }} component={"p"} variant="p">
               بازگشت به صفحه قبل
-            </Typography>
+            </BackTypography>
           </div>
         </Grid2>
       </Grid2>
