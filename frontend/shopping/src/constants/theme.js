@@ -74,7 +74,7 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#1e1e1e", // Dark gray for primary color (durability)
+      main: "#333333", // Dark gray for primary color (durability)
       contrastText: "#ffffff", // White text for contrast
     },
     secondary: {
