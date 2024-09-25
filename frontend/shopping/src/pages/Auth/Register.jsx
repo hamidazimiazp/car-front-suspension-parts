@@ -10,6 +10,7 @@ import propTypes from "prop-types";
 import useTitle from "utils/hooks/useTitle";
 import { styled, useTheme } from "@mui/material/styles";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled(Grid2)(({ theme }) => ({
   width: "100%",
@@ -46,6 +47,7 @@ const CustomTextField = styled(TextField)(({ theme }) => ({
 const Register = ({ PageTitle }) => {
   useTitle(PageTitle);
   const theme = useTheme();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -71,7 +73,7 @@ const Register = ({ PageTitle }) => {
           component={"h1"}
           color="primary.contrastText"
         >
-          فرم ورود
+          فرم ثبت نام
         </Typography>
         <form
           onSubmit={registerHandler}
@@ -126,18 +128,32 @@ const Register = ({ PageTitle }) => {
               placeholder="رمز عبور خود را مجددا وارد کنید"
             />
           </Box>
-          <Button
-            variant="contained"
-            type="submit"
-            size="large"
-            sx={{
-              padding: "5px 50px",
-              background: theme.palette.primary.main,
-              color: theme.palette.primary.contrastText,
-            }}
-          >
-            ورود
-          </Button>
+          <Box>
+            <Button
+              variant="contained"
+              type="submit"
+              size="large"
+              sx={{
+                padding: "5px 50px",
+                background: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+              }}
+            >
+              ثبت نام
+            </Button>
+            <Button
+              onClick={() => navigate("/auth/login/")}
+              size="large"
+              sx={{
+                padding: "5px 50px",
+                background: theme.palette.primary.main,
+                color: theme.palette.grey[400],
+                mr: 2,
+              }}
+            >
+              ورود
+            </Button>
+          </Box>
         </form>
       </Wrapper>
     </Container>
