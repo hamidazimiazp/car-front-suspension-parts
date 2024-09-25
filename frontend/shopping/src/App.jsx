@@ -4,7 +4,7 @@ import { darkTheme, lightTheme } from "constants/theme";
 import { useCallback } from "react";
 import { useLocalStorage } from "utils/localStorage/localStorage";
 const App = () => {
-  const [themeValue, setThemeValue] = useLocalStorage("theme", "light");
+  const [themeValue, setThemeValue] = useLocalStorage("theme", "dark");
 
   const ThemeHandler = useCallback(() => {
     if (themeValue == "light") {
