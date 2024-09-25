@@ -11,6 +11,8 @@ import useTitle from "utils/hooks/useTitle";
 import { styled, useTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { register } from "services/auth";
 
 const Wrapper = styled(Grid2)(({ theme }) => ({
   width: "100%",
@@ -59,9 +61,40 @@ const Register = ({ PageTitle }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const { isPending, mutate } = useMutation({
+    mutationKey: ["register"],
+    mutationFn: async (data) => await register(data),
+  });
+
   const registerHandler = (e) => {
     e.preventDefault();
-    console.log(formData);
+    if (
+      !formData.username ||
+      !formData.email ||
+      !formData.password ||
+      !formData.password_confirm
+    )
+      return;
+
+    mutate(formData, {
+      onSuccess: (data) => {
+        console.log(data);
+        setFormData({
+          username: "",
+          email: "",
+          password: "",
+          password_confirm: "",
+        });
+        if (data.response.status === 201) {
+          navigate("/auth/login/");
+        } else {
+          console.log("canceled");
+        }
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    });
   };
 
   return (
@@ -139,7 +172,7 @@ const Register = ({ PageTitle }) => {
                 color: theme.palette.primary.contrastText,
               }}
             >
-              ثبت نام
+              {isPending ? "در حال ارسال ..." : "ثبت نام"}
             </Button>
             <Button
               onClick={() => navigate("/auth/login/")}
