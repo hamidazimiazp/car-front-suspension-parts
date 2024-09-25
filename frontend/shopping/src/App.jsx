@@ -16,7 +16,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={themeValue === "light" ? lightTheme : darkTheme}>
-      <Router themeValue={themeValue} ThemeHandler={ThemeHandler} />
+      <Router ThemeHandler={ThemeHandler} />
     </ThemeProvider>
   );
 };

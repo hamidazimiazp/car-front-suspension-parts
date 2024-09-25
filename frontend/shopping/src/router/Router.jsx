@@ -7,13 +7,13 @@ import Layout from "layouts/main/Layout";
 import Login from "pages/Auth/Login";
 import Register from "pages/Auth/Register";
 
-const Router = ({ themeValue, ThemeHandler }) => {
+const Router = ({ ThemeHandler }) => {
   return (
     <Routes>
       <Route
         index
         element={
-          <Layout themeValue={themeValue} ThemeHandler={ThemeHandler}>
+          <Layout ThemeHandler={ThemeHandler}>
             <HomePage PageTitle="صفحه اصلی" />
           </Layout>
         }
@@ -25,7 +25,7 @@ const Router = ({ themeValue, ThemeHandler }) => {
       <Route
         path="/auth/login/"
         element={
-          <Layout themeValue={themeValue} ThemeHandler={ThemeHandler}>
+          <Layout ThemeHandler={ThemeHandler}>
             <Login PageTitle="ورود" />
           </Layout>
         }
@@ -33,7 +33,7 @@ const Router = ({ themeValue, ThemeHandler }) => {
       <Route
         path="/auth/register/"
         element={
-          <Layout themeValue={themeValue} ThemeHandler={ThemeHandler}>
+          <Layout ThemeHandler={ThemeHandler}>
             <Register PageTitle="ثبت نام" />
           </Layout>
         }
@@ -46,6 +46,5 @@ const Router = ({ themeValue, ThemeHandler }) => {
 export default Router;
 
 Router.propTypes = {
-  themeValue: propTypes.string,
   ThemeHandler: propTypes.func,
 };
