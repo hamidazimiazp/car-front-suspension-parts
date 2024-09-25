@@ -9,4 +9,13 @@ const login = async (data) => {
   }
 };
 
-export { login };
+const register = async (data) => {
+  try {
+    const response = await api.post("/accounts/user/", data);
+    return { response };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export { login, register };
