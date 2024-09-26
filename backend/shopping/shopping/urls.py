@@ -12,6 +12,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # apps
     path("accounts/", include("accounts.urls", namespace="accounts")),
+    path("shop/", include("shop.urls", namespace="shop")),
     # rest api
     path('api/', include('rest_framework.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

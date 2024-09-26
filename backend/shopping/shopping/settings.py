@@ -26,8 +26,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     # local apps
     "accounts.apps.AccountsConfig",
+    "shop.apps.ShopConfig",
 
     # third party
     'rest_framework',
@@ -35,6 +37,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     # Add this app for blacklisting
     'rest_framework_simplejwt.token_blacklist',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
