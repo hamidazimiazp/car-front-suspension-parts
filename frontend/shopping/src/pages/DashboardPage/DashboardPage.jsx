@@ -10,6 +10,7 @@ const DashboardPage = ({ PageTitle }) => {
   const { data, isPending } = useQuery({
     queryKey: ["whoami"],
     queryFn: async () => await whoAmI(),
+    gcTime: 1000,
   });
 
   console.log(data?.response?.data, isPending);
