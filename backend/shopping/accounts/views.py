@@ -80,9 +80,24 @@ class UserViewSet(viewsets.ViewSet):
             }, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    
     @action(detail=False, methods=['post'], permission_classes=[IsAuthenticated])
     def logout(self, request):
-        """Log out the current user (requires authentication)."""
-        logout(request)
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        """Log out the current user and invalidate their refresh token."""
+        try:
+            # Get the refresh token from the request data
+            refresh_token = request.data.get("refresh")
+
+            # Blacklist the refresh token
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+
+            # Perform Django logout to remove the session
+            logout(request)
+
+            return Response({"detail": "Successfully logged out."}, status=status.HTTP_204_NO_CONTENT)
+
+        except Exception as e:
+            return Response({"detail": "Invalid token or token already blacklisted."}, status=status.HTTP_400_BAD_REQUEST)
+
+

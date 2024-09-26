@@ -18,4 +18,15 @@ const register = async (data) => {
   }
 };
 
-export { login, register };
+const logout = async (refresh) => {
+  try {
+    const response = await api.post("/accounts/user/logout/", {
+      refresh,
+    });
+    return { response };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export { login, register, logout };

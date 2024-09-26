@@ -1,6 +1,8 @@
 const setCookies = (tokens) => {
-  document.cookie = `access=${tokens.access};max-age=${5 * 60}`;
-  document.cookie = `refresh=${tokens.refresh};max-age=${1 * 24 * 60 * 60}`;
+  document.cookie = `access=${tokens.access};max-age=${5 * 60}; path=/`;
+  document.cookie = `refresh=${tokens.refresh};max-age=${
+    1 * 24 * 60 * 60
+  }; path=/`;
 };
 
 const getCookie = (cookieName) => {
@@ -11,7 +13,7 @@ const getCookie = (cookieName) => {
 };
 
 const removeCookie = (cookieName) => {
-  document.cookie = `${cookieName}=; max-age=0`;
+  document.cookie = `${cookieName}=; max-age=0; path=/`;
 };
 
 export { setCookies, getCookie, removeCookie };

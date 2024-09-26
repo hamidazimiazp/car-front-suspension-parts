@@ -14,13 +14,19 @@ import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import NightlightIcon from "@mui/icons-material/Nightlight";
 import { useTheme } from "@mui/material";
 import propTypes from "prop-types";
+import { logout } from "services/auth";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { removeCookie } from "utils/cookies/cookies";
+import { getCookie } from "utils/cookies/cookies";
 
 const pages = ["خانه", "فروشگاه", "وبلاگ"];
 const settings = ["پروفایل", "داشبورد", "خروج"];
 
 function Header({ ThemeHandler }) {
   const theme = useTheme();
-
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -37,6 +43,31 @@ function Header({ ThemeHandler }) {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const { isPending, mutate } = useMutation({
+    mutationKey: ["logout"],
+    mutationFn: async (data) => await logout(data),
+  });
+
+  const logoutHandler = async () => {
+    mutate(getCookie("refresh"), {
+      onSuccess: (data) => {
+        if (data.response.status === 204) {
+          // Remove tokens from cookies
+          removeCookie("access");
+          removeCookie("refresh");
+          // Redirect user to login page
+          navigate("/auth/login");
+          toast.success("با موفقیت خارج شدید");
+        } else {
+          toast.error("خطایی رخ داده است.");
+        }
+      },
+      onError: () => {
+        toast.error("خطایی رخ داده است.");
+      },
+    });
   };
 
   return (
@@ -155,9 +186,18 @@ function Header({ ThemeHandler }) {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {setting}
-                  </Typography>
+                  {setting === "خروج" ? (
+                    <Typography
+                      sx={{ textAlign: "center" }}
+                      onClick={logoutHandler}
+                    >
+                      {isPending ? "درحال خروج" : setting}
+                    </Typography>
+                  ) : (
+                    <Typography sx={{ textAlign: "center" }}>
+                      {setting}
+                    </Typography>
+                  )}
                 </MenuItem>
               ))}
             </Menu>
