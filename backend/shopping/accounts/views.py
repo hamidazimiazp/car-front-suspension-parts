@@ -99,5 +99,13 @@ class UserViewSet(viewsets.ViewSet):
 
         except Exception as e:
             return Response({"detail": "Invalid token or token already blacklisted."}, status=status.HTTP_400_BAD_REQUEST)
+        
+    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
+    def whoami(self, request):
+        """Retrieve details of the authenticated user."""
+        # The currently authenticated user can be accessed using request.user
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
